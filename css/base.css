@@ -1,0 +1,80 @@
+/* =========================================================
+   OVA Traducción ER → Relacional · base.css
+   Variables de color (Manual de Identidad Visual, Universidad
+   de Córdoba v1.0), tipografía y reinicio.
+   ========================================================= */
+:root {
+  --uc-verde: #589151;          /* Verde corporativo · Pantone 8703 C */
+  --uc-verde-oscuro: #3D6838;   /* Derivado para contraste AA */
+  --uc-verde-claro: #EEF4ED;    /* Tinte de fondo */
+  --uc-verde-medio: #CFE1CC;
+  --uc-cafe: #76483D;           /* Café de la bandera · Pantone 8583 C */
+  --uc-cafe-claro: #F5EDEA;
+  --uc-negro: #201E1E;          /* Negro corporativo */
+  --uc-gris: #6B6B6B;
+  --uc-gris-claro: #E6E6E3;
+  --uc-fondo: #FAFAF8;
+  --uc-blanco: #FFFFFF;
+  --uc-error: #B3261E;
+  --uc-error-claro: #FBECEB;
+  --uc-aviso: #8A5A00;
+  --uc-aviso-claro: #FFF5E0;
+
+  --fuente: Calibri, "Segoe UI", Tahoma, Arial, sans-serif;
+  --mono: Consolas, "Courier New", monospace;
+
+  --radio: 8px;
+  --sombra: 0 1px 2px rgba(32, 30, 30, .08), 0 2px 8px rgba(32, 30, 30, .06);
+  --ancho-menu: 272px;
+  --alto-cabecera: 64px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--uc-negro);
+  background: var(--uc-fondo);
+}
+
+h1, h2, h3, h4 { line-height: 1.25; margin: 0 0 .6em; color: var(--uc-negro); }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.55rem; color: var(--uc-verde-oscuro); }
+h3 { font-size: 1.2rem; }
+h4 { font-size: 1.05rem; }
+p { margin: 0 0 .9em; }
+ul, ol { margin: 0 0 1em; padding-left: 1.4em; }
+li { margin-bottom: .3em; }
+a { color: var(--uc-verde-oscuro); }
+a:hover { color: var(--uc-cafe); }
+code, .mono { font-family: var(--mono); font-size: .92em; }
+strong { font-weight: 700; }
+small { font-size: .85em; }
+hr { border: 0; border-top: 1px solid var(--uc-gris-claro); margin: 1.5em 0; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--uc-cafe);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute !important; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); border: 0;
+}
+
+.saltar {
+  position: absolute; left: -999px; top: 8px; z-index: 100;
+  background: var(--uc-cafe); color: #fff; padding: 8px 14px; border-radius: var(--radio);
+}
+.saltar:focus { left: 8px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

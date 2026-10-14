@@ -1,0 +1,24 @@
+/* =========================================================
+   impresion.css · Vista imprimible del informe del taller.
+   Al imprimir con la clase body.imprimiendo-informe solo se
+   muestra el informe; en otro caso se imprime la sección activa.
+   ========================================================= */
+@media print {
+  @page { margin: 16mm 14mm; }
+  body { background: #fff; font-size: 11pt; color: #000; }
+  .cabecera, .proceso, .menu, .pie, .navegacion-pie, .fila-botones, .btn, .saltar, .modal { display: none !important; }
+  .principal { padding: 0; }
+  .tarjeta { box-shadow: none; break-inside: avoid; }
+  .tabla thead th { background: #fff !important; color: #000; border-bottom: 2px solid #000; }
+  a { color: #000; text-decoration: none; }
+
+  body.imprimiendo-informe .contenedor > *:not(.principal),
+  body.imprimiendo-informe .seccion { display: none !important; }
+  body.imprimiendo-informe .informe { display: block !important; }
+}
+
+.informe h1 { font-size: 18pt; color: #3D6838; border-bottom: 3px solid #589151; padding-bottom: 6px; }
+.informe h2 { font-size: 13pt; color: #3D6838; margin-top: 18px; }
+.informe .resp { white-space: pre-wrap; font-family: Consolas, "Courier New", monospace; font-size: 9.5pt; border: 1px solid #ccc; border-radius: 4px; padding: 8px; background: #fafafa; }
+.informe .meta td { padding: 2px 10px 2px 0; }
+.informe .firma { margin-top: 18px; font-size: 9pt; color: #555; }

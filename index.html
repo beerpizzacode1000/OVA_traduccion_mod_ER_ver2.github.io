@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Objeto Virtual de Aprendizaje: traducción del modelo Entidad-Relación al modelo relacional. Bases de Datos, Ingeniería de Sistemas, Universidad de Córdoba.">
+  <meta name="author" content="Ing. Alexander Fernández Arango, Mg.S.I.">
+  <title>OVA Traducción ER · Universidad de Córdoba</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/impresion.css">
+</head>
+<body>
+<a class="saltar" href="#principal">Saltar al contenido</a>
+
+<!-- ===================== CABECERA ===================== -->
+<header class="cabecera">
+  <button type="button" class="btn-cabecera btn-menu" id="btn-menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú de secciones"><span aria-hidden="true">☰</span><span class="txt"> Menú</span></button>
+  <a class="cabecera__logo" href="#inicio">
+    <img id="logo-img" src="img/logo-unicordoba.png" alt="Logosímbolo de la Universidad de Córdoba">
+    <span id="logo-texto" class="cabecera__emblema" hidden aria-hidden="true">UC</span>
+    <span class="cabecera__textos">
+      <span class="cabecera__inst">Universidad de Córdoba · Ingeniería de Sistemas</span>
+      <span class="cabecera__titulo">Traducción del Modelo ER al Modelo Relacional</span>
+    </span>
+  </a>
+  <div class="cabecera__acciones">
+    <button type="button" class="btn-cabecera glosario" data-abrir-glosario>Glosario</button>
+  </div>
+</header>
+
+<!-- ============ BARRA DEL PROCESO DE 8 PASOS ============ -->
+<nav class="proceso" aria-label="Proceso de traducción en 8 pasos">
+  <div class="proceso__titulo">Proceso de traducción · pulse un paso para ver su regla</div>
+  <ol class="proceso__lista" id="proceso-lista"></ol>
+  <div class="popover-paso" id="popover-paso" role="dialog" aria-label="Detalle del paso" hidden></div>
+</nav>
+
+<div class="contenedor">
+  <!-- ===================== MENÚ ===================== -->
+  <nav class="menu" id="menu" aria-label="Secciones del OVA">
+    <div class="menu__progreso">
+      <small id="avance-txt">0 % completado</small>
+      <div class="barra-avance" aria-hidden="true"><span></span></div>
+    </div>
+    <ol>
+      <li><a href="#inicio" data-sec="inicio"><span class="menu__marca"></span>Inicio</a></li>
+      <li class="menu__sep" aria-hidden="true">Estudio guiado</li>
+      <li><a href="#m1" data-sec="m1"><span class="menu__marca"></span>M1 · Fundamentos</a></li>
+      <li><a href="#m2" data-sec="m2"><span class="menu__marca"></span>M2 · Dominios y llaves</a></li>
+      <li><a href="#m3" data-sec="m3"><span class="menu__marca"></span>M3 · Reglas de traducción</a></li>
+      <li><a href="#m4" data-sec="m4"><span class="menu__marca"></span>M4 · Caso guiado</a></li>
+      <li class="menu__sep" aria-hidden="true">Práctica y evaluación</li>
+      <li><a href="#m5" data-sec="m5"><span class="menu__marca"></span>M5 · Laboratorio</a></li>
+      <li><a href="#m6" data-sec="m6"><span class="menu__marca"></span>M6 · Errores y buenas prácticas</a></li>
+      <li><a href="#taller" data-sec="taller"><span class="menu__marca"></span>Taller evaluativo</a></li>
+      <li class="menu__sep" aria-hidden="true">Consulta</li>
+      <li><a href="#glosario" data-sec="glosario"><span class="menu__marca"></span>Glosario</a></li>
+      <li><a href="#referencias" data-sec="referencias"><span class="menu__marca"></span>Referencias y créditos</a></li>
+    </ol>
+  </nav>
+
+  <main class="principal" id="principal">
+
+<!-- =========================================================
+     INICIO
+     ========================================================= -->
+<section class="seccion" id="sec-inicio" aria-labelledby="t-inicio">
+  <div class="heroe">
+    <h1 id="t-inicio">Del diagrama Entidad-Relación al esquema relacional</h1>
+    <p>En este Objeto Virtual de Aprendizaje traducirá, paso a paso, un modelo ER completo a un esquema lógico relacional con llaves, dominios y restricciones verificadas. Todo el recorrido sigue un mismo proceso de 8 pasos.</p>
+    <div class="datos">
+      <span><b>Curso:</b> Bases de Datos (FDOC-088) · Unidad 2</span>
+      <span><b>Duración:</b> 6 horas (4 h de estudio y 2 h de taller)</span>
+      <span><b>Docente:</b> Ing. Alexander Fernández Arango, Mg.S.I.</span>
+    </div>
+    <div class="fila-botones" style="margin-top:18px"><a class="btn" href="#m1">Comenzar por el Módulo 1 →</a></div>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><h2>Objetivo general</h2></div>
+    <p>Traducir un esquema conceptual Entidad-Relación a un esquema lógico relacional aplicando reglas formales, y justificar las llaves, dominios y restricciones de integridad que garantizan su corrección.</p>
+    <details class="despliega"><summary>Ver los objetivos específicos</summary><div>
+      <div class="tabla-env"><table class="tabla">
+        <thead><tr><th>#</th><th>Objetivo específico</th><th>Nivel</th><th>Módulo</th><th>Pasos</th></tr></thead>
+        <tbody>
+          <tr><td>OE1</td><td>Identificar los componentes estructurales de una relación: tupla, atributo, dominio, grado y cardinalidad</td><td>Recordar</td><td>M1</td><td>8</td></tr>
+          <tr><td>OE2</td><td>Diferenciar esquema (intensión) e instancia (extensión) de una relación</td><td>Comprender</td><td>M1</td><td>8</td></tr>
+          <tr><td>OE3</td><td>Determinar superclaves, llaves candidatas, primaria, alternativas y foráneas</td><td>Aplicar</td><td>M2</td><td>7</td></tr>
+          <tr><td>OE4</td><td>Aplicar las reglas de traducción a entidades fuertes y débiles y a atributos especiales</td><td>Aplicar</td><td>M3, M4</td><td>2, 3, 4</td></tr>
+          <tr><td>OE5</td><td>Aplicar las reglas de traducción a relaciones 1:1, 1:N, N:M, n-arias y reflexivas</td><td>Aplicar</td><td>M3, M4</td><td>5, 6</td></tr>
+          <tr><td>OE6</td><td>Analizar una instancia para detectar violaciones de integridad</td><td>Analizar</td><td>M4, M5</td><td>7, 8</td></tr>
+          <tr><td>OE7</td><td>Justificar las decisiones de diseño tomadas durante la traducción</td><td>Evaluar</td><td>M4, Taller</td><td>1 a 8</td></tr>
+        </tbody>
+      </table></div>
+    </div></details>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><h2>El hilo conductor: 8 pasos</h2></div>
+    <p>Los seis primeros pasos recorren el diagrama elemento por elemento; los dos últimos trabajan sobre el esquema completo. La barra superior le indica en todo momento qué pasos ejercita la sección que está estudiando.</p>
+    <div class="flujo">
+      <div class="flujo__paso"><span class="n">Paso 1</span><strong>Inventariar el diagrama ER</strong><small>Tema 05</small></div>
+      <div class="flujo__paso"><span class="n">Paso 2</span><strong>Entidades fuertes</strong><small>Tema 05</small></div>
+      <div class="flujo__paso"><span class="n">Paso 3</span><strong>Entidades débiles</strong><small>Tema 05</small></div>
+      <div class="flujo__paso"><span class="n">Paso 4</span><strong>Atributos especiales</strong><small>Temas 05 y 06</small></div>
+      <div class="flujo__paso"><span class="n">Paso 5</span><strong>Relaciones 1:1 y 1:N</strong><small>Tema 05</small></div>
+      <div class="flujo__paso"><span class="n">Paso 6</span><strong>Relaciones N:M, n-arias y reflexivas</strong><small>Tema 05</small></div>
+      <div class="flujo__paso acento"><span class="n">Paso 7</span><strong>Dominios, llaves e integridad</strong><small>Temas 06 y 07</small></div>
+      <div class="flujo__paso acento"><span class="n">Paso 8</span><strong>Validar con una instancia</strong><small>Temas 06 y 07</small></div>
+    </div>
+    <div class="recuadro recuadro--regla"><span class="recuadro__titulo">Regla de trazabilidad</span>Cada elemento del diagrama ER produce exactamente un artefacto relacional: una columna, una relación o una restricción.</div>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><h2>Ruta de aprendizaje</h2></div>
+    <div class="rejilla">
+      <a class="tarjeta tarjeta-modulo" href="#m1"><span class="num">Módulo 1 · Tema 06</span><h3>Fundamentos de la estructura relacional</h3><p>Relación, tupla, dominio, grado, cardinalidad, esquema e instancia.</p><span class="meta">35 min · Paso 8</span></a>
+      <a class="tarjeta tarjeta-modulo" href="#m2"><span class="num">Módulo 2 · Tema 07</span><h3>Dominios, relación y llaves</h3><p>Dominios formales, jerarquía de llaves, llave foránea e integridad.</p><span class="meta">45 min · Paso 7</span></a>
+      <a class="tarjeta tarjeta-modulo" href="#m3"><span class="num">Módulo 3 · Tema 05</span><h3>Reglas de traducción</h3><p>Reglas por elemento, cuadro organizativo y algoritmo de decisión.</p><span class="meta">45 min · Pasos 1 a 6</span></a>
+      <a class="tarjeta tarjeta-modulo" href="#m4"><span class="num">Módulo 4</span><h3>Caso guiado paso a paso</h3><p>El proceso completo aplicado a «Educación Continua Unicórdoba».</p><span class="meta">70 min · Pasos 1 a 8</span></a>
+      <a class="tarjeta tarjeta-modulo" href="#m5"><span class="num">Módulo 5</span><h3>Laboratorio de práctica</h3><p>Seis ejercicios autocalificables con retroalimentación inmediata.</p><span class="meta">30 min · Pasos 1 a 8</span></a>
+      <a class="tarjeta tarjeta-modulo" href="#m6"><span class="num">Módulo 6</span><h3>Errores comunes y buenas prácticas</h3><p>Errores típicos, convenciones de denominación y lista de verificación.</p><span class="meta">15 min · Pasos 2 a 8</span></a>
+      <a class="tarjeta tarjeta-modulo" href="#taller"><span class="num">Evaluación</span><h3>Taller evaluativo</h3><p>Cuestionario, traducción de un caso nuevo, validación y reflexión.</p><span class="meta">120 min · 100 puntos</span></a>
+    </div>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><h2>Cómo usar este OVA</h2></div>
+    <div class="rejilla rejilla--2">
+      <div class="tarjeta tarjeta--verde"><h3>Recorrido recomendado</h3><p>Avance en orden: M1 → M2 → M3 → M4. Cada módulo teórico tiene cinco bloques: <b>Activa</b>, <b>Aprende</b>, <b>Observa</b>, <b>Comprueba</b> y <b>Sintetiza</b>. El taller se habilita al completar el caso guiado.</p></div>
+      <div class="tarjeta tarjeta--cafe"><h3>Notación sin SQL</h3><p>En esta fase el esquema se escribe en notación relacional conceptual:</p>
+        <p class="mono">CURSO(<span class="atr pk">cod_curso</span>, nombre_curso, horas, valor, <span class="atr fk">cod_area</span>)</p>
+        <p><span class="atr pk">subrayado</span> = llave primaria · <span class="atr fk">cursiva café</span> = llave foránea.</p></div>
+    </div>
+    <p style="color:var(--uc-gris);font-size:.92rem">Su progreso se guarda automáticamente en este navegador. Si usa otro equipo, el progreso empezará de nuevo.</p>
+  </div>
+</section>
+
+<!-- =========================================================
+     M1 · FUNDAMENTOS DE LA ESTRUCTURA RELACIONAL (TEMA 06)
+     ========================================================= -->
+<section class="seccion" id="sec-m1" aria-labelledby="t-m1" hidden>
+  <div class="encabezado-seccion">
+    <span class="etiqueta">Módulo 1 · Tema 06 · Paso 8</span>
+    <h1 id="t-m1">Fundamentos de la estructura relacional</h1>
+    <p>El vocabulario con el que se describe el resultado de toda traducción: una relación con nombre, atributos sobre dominios, un esquema estable y una instancia cambiante.</p>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">1 · Activa</span><h2>Saberes previos</h2></div>
+    <details class="despliega"><summary>En el Tema 05, ¿qué elemento del modelo ER se convierte en una tabla?</summary><div><p>La entidad. Cada entidad (y algunas relaciones, como las N:M) se convierte en una relación del modelo relacional.</p></div></details>
+    <details class="despliega"><summary>¿Qué papel cumple el atributo identificador de una entidad cuando pasa a tabla?</summary><div><p>Se convierte en la llave primaria: el atributo que distingue cada fila de las demás.</p></div></details>
+    <details class="despliega"><summary>¿Qué significa que dos tablas estén relacionadas?</summary><div><p>Que una de ellas contiene una llave foránea cuyos valores coinciden con la llave primaria de la otra.</p></div></details>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">2 · Aprende</span><h2>Conceptos clave</h2></div>
+    <div class="rejilla rejilla--2">
+      <div class="tarjeta"><h3>Origen del modelo</h3><p>E. F. Codd propone en 1970 representar los datos como <b>relaciones</b>, separando la estructura lógica del almacenamiento físico.</p>
+        <p class="mono" style="font-size:.85rem">1970 Codd · 1974 System R · 1979 primer SGBD comercial · 1986 estándar ANSI</p></div>
+      <div class="tarjeta"><h3>Base de datos relacional</h3><p>Conjunto finito de relaciones con nombres distintos, que el usuario percibe como tablas de valores.</p>
+        <div class="recuadro recuadro--formal">BD = {r<sub>1</sub>(R<sub>1</sub>), r<sub>2</sub>(R<sub>2</sub>), …, r<sub>m</sub>(R<sub>m</sub>)}</div></div>
+    </div>
+    <div class="tabla-env"><table class="tabla">
+      <caption>Componentes estructurales del modelo</caption>
+      <thead><tr><th>Componente</th><th>Descripción</th><th>Equivalente en tablas</th></tr></thead>
+      <tbody>
+        <tr><td><b>Relación</b></td><td>Conjunto de tuplas que comparten un mismo esquema</td><td>Tabla</td></tr>
+        <tr><td><b>Tupla</b></td><td>Elemento de la relación: una fila de valores, un hecho</td><td>Fila / registro</td></tr>
+        <tr><td><b>Atributo</b></td><td>Nombre de una columna; papel dentro del esquema</td><td>Columna / campo</td></tr>
+        <tr><td><b>Dominio</b></td><td>Conjunto de valores atómicos permitidos para un atributo</td><td>Tipo de dato</td></tr>
+        <tr><td><b>Grado</b></td><td>Número de atributos de la relación</td><td>N.º de columnas</td></tr>
+        <tr><td><b>Cardinalidad</b></td><td>Número de tuplas presentes en la relación</td><td>N.º de filas</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tarjeta tarjeta--verde"><h3>Formalización</h3><p>Una relación de grado n es un subconjunto del producto cartesiano de sus dominios:</p>
+      <div class="recuadro recuadro--formal">r ⊆ D<sub>1</sub> × D<sub>2</sub> × ⋯ × D<sub>n</sub> &nbsp;&nbsp; t = ⟨v<sub>1</sub>, …, v<sub>n</sub>⟩, v<sub>i</sub> ∈ D<sub>i</sub></div>
+      <p>El esquema es R(A<sub>1</sub>:D<sub>1</sub>, …, A<sub>n</sub>:D<sub>n</sub>), con grado deg(R) = n y cardinalidad |r|.</p></div>
+    <div class="rejilla rejilla--2">
+      <div class="tarjeta"><h3>Propiedades de una relación</h3><ul>
+        <li><b>Sin tuplas duplicadas:</b> es un conjunto.</li>
+        <li><b>Sin orden en las tuplas:</b> el orden de las filas no tiene significado.</li>
+        <li><b>Sin orden en los atributos:</b> las columnas se identifican por nombre.</li>
+        <li><b>Valores atómicos:</b> cada celda guarda un valor indivisible.</li>
+        <li><b>Nombre único</b> para la relación y para cada atributo.</li></ul></div>
+      <div class="tarjeta"><h3>Esquema e instancia</h3>
+        <p><b>Esquema (intensión):</b> R(A<sub>1</sub>:D<sub>1</sub>, …, A<sub>n</sub>:D<sub>n</sub>). Describe la estructura y cambia rara vez.</p>
+        <p><b>Instancia (extensión):</b> r(R), el conjunto de tuplas en un instante. Cambia con cada inserción, modificación o eliminación.</p></div>
+      <div class="tarjeta"><h3>El valor nulo (NULL)</h3><p>Marca un valor desconocido, inexistente o no aplicable. <b>No es cero ni cadena vacía.</b> Si un atributo admite nulos, sus valores pertenecen a D ∪ {NULL}; si es obligatorio (NO NULO), v ∈ D.</p></div>
+      <div class="tarjeta"><h3>Restricciones estáticas</h3><ul>
+        <li><b>De dominio:</b> valor dentro del rango.</li>
+        <li><b>De columna:</b> obligatoriedad y unicidad.</li>
+        <li><b>De entidad:</b> la PK no es nula ni se repite.</li>
+        <li><b>Referencial:</b> una FK apunta a una tupla existente.</li>
+        <li><b>Semántica:</b> reglas propias del negocio.</li></ul></div>
+    </div>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">3 · Observa</span><h2>Anatomía de una relación del caso guiado</h2></div>
+    <p>Pase el cursor (o navegue con la tecla Tab) sobre los encabezados y las celdas de la relación CURSO.</p>
+    <div class="anatomia" id="anatomia">
+      <div class="tabla-env"><table class="tabla">
+        <caption>CURSO</caption>
+        <thead><tr><th scope="col">cod_curso</th><th scope="col">nombre_curso</th><th scope="col">horas</th><th scope="col">valor</th><th scope="col">cod_area</th></tr></thead>
+        <tbody>
+          <tr><td>EXT101</td><td>Excel para la gestión empresarial</td><td>40</td><td>280000</td><td>TIC</td></tr>
+          <tr><td>EXT102</td><td>Fundamentos de Python</td><td>60</td><td>350000</td><td>TIC</td></tr>
+          <tr><td>EXT205</td><td>Gestión de proyectos ágiles</td><td>48</td><td>320000</td><td>ADM</td></tr>
+        </tbody>
+      </table></div>
+      <div class="anatomia__rotulo" aria-live="polite">Señale un elemento de la tabla para ver qué es.</div>
+    </div>
+    <div class="recuadro recuadro--formal">deg(CURSO) = 5 · |r| = 3 · t<sub>1</sub> = ⟨EXT101, Excel para la gestión empresarial, 40, 280000, TIC⟩</div>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">4 · Comprueba</span><h2>Verificación formativa</h2></div>
+    <div id="quiz-m1"></div>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">5 · Sintetiza</span><h2>Ideas clave</h2></div>
+    <div class="tarjeta tarjeta--verde"><ul>
+      <li>Una relación es r ⊆ D<sub>1</sub> × … × D<sub>n</sub>; sus tuplas son únicas y sin orden.</li>
+      <li>Grado = número de atributos; cardinalidad = número de tuplas.</li>
+      <li>El esquema es estable; la instancia cambia con el tiempo.</li>
+      <li>NULL significa desconocido o no aplicable, nunca cero.</li></ul>
+      <p style="margin:0"><b>Relación → esquema e instancia → restricciones.</b></p></div>
+  </div>
+  <div class="navegacion-pie"><a class="btn btn--sec" href="#inicio">← Inicio</a><a class="btn" href="#m2">Módulo 2 →</a></div>
+</section>
+
+<!-- =========================================================
+     M2 · DOMINIOS, RELACIÓN Y LLAVES (TEMA 07)
+     ========================================================= -->
+<section class="seccion" id="sec-m2" aria-labelledby="t-m2" hidden>
+  <div class="encabezado-seccion">
+    <span class="etiqueta">Módulo 2 · Tema 07 · Paso 7</span>
+    <h1 id="t-m2">Dominios, relación y llaves</h1>
+    <p>Las herramientas del paso 7: decidir qué valores admite cada atributo y qué conjunto de atributos identifica cada tupla.</p>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">1 · Activa</span><h2>Saberes previos</h2></div>
+    <details class="despliega"><summary>¿Qué valores puede tomar el atributo horas de un curso? ¿Y una nota final?</summary><div><p>Horas: enteros positivos dentro de un rango razonable (en el caso, entre 8 y 160). Nota: decimales con una cifra entre 0.0 y 5.0. Ese conjunto de valores válidos es el <b>dominio</b>.</p></div></details>
+    <details class="despliega"><summary>¿Es el nombre de una persona un buen identificador?</summary><div><p>No: existen homónimos y los nombres pueden corregirse. Un identificador debe ser único y estable.</p></div></details>
+    <details class="despliega"><summary>¿Qué garantiza que una inscripción pertenezca a un participante real?</summary><div><p>La llave foránea y la integridad referencial: el documento de la inscripción debe existir en PARTICIPANTE.</p></div></details>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">2 · Aprende</span><h2>Dominio y relación</h2></div>
+    <div class="rejilla rejilla--2">
+      <div class="tarjeta"><h3>Dominio</h3><p>Conjunto de valores atómicos del mismo tipo, con nombre, tipo y formato.</p>
+        <div class="recuadro recuadro--formal">dom(A) = D &nbsp;·&nbsp; v ∈ dom(A) o v = NULL (si se admite)</div>
+        <p>Ejemplos: Semestres = {1, …, 10}; Notas = {0.0, 0.1, …, 5.0}; Estados = {activo, inactivo, retirado}.</p></div>
+      <div class="tarjeta"><h3>Dominio, atributo y tipo de dato</h3>
+        <p><b>Dominio:</b> el conjunto de valores (fechas válidas).</p>
+        <p><b>Atributo:</b> el papel del dominio en una relación (fecha_nac, fecha_insc).</p>
+        <p><b>Tipo de dato:</b> su implementación en un SGBD; se estudiará en el diseño físico.</p>
+        <p>Un mismo dominio puede servir a varios atributos.</p></div>
+    </div>
+    <div class="tarjeta tarjeta--verde"><h3>Producto cartesiano y relación</h3>
+      <p>Con D<sub>1</sub> = {MON, LOR} (sedes) y D<sub>2</sub> = {101, 102, 103} (números de salón), marque las combinaciones que existen: en Montería están los salones 101 y 102; en Lorica, el 101 y el 103.</p>
+      <div id="cartesiano"></div></div>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">2 · Aprende</span><h2>Llaves</h2></div>
+    <div class="recuadro recuadro--aviso"><span class="recuadro__titulo">¿Por qué necesitamos llaves?</span>Dos tuplas «Ana María Pérez Díaz, Asistente» no permiten saber si son dos docentes o un registro repetido. Una llave garantiza que cada tupla sea identificable de forma única.</div>
+    <div class="rejilla rejilla--2">
+      <div class="tarjeta"><h3>Superclave</h3><p>Conjunto de atributos que identifica cada tupla.</p>
+        <div class="recuadro recuadro--formal">∀ t<sub>1</sub>, t<sub>2</sub> ∈ r: t<sub>1</sub> ≠ t<sub>2</sub> ⇒ t<sub>1</sub>[K] ≠ t<sub>2</sub>[K]</div>
+        <p>El conjunto completo de atributos siempre es superclave.</p></div>
+      <div class="tarjeta"><h3>Llave candidata</h3><p>Superclave <b>minimal</b>: ningún subconjunto propio identifica las tuplas.</p>
+        <div class="recuadro recuadro--formal">K candidata ⇔ K superclave ∧ ∄ K′ ⊊ K superclave</div></div>
+      <div class="tarjeta"><h3>Llave primaria y alternativas</h3><p>La <b>primaria</b> es la candidata elegida: única y no nula. Las candidatas no elegidas son <b>alternativas</b> y se marcan ÚNICO.</p></div>
+      <div class="tarjeta"><h3>Llave compuesta</h3><p>Formada por dos o más atributos que solo identifican en conjunto, como {cod_sede, num_salon}.</p></div>
+      <div class="tarjeta"><h3>Natural y sustituta</h3><p><b>Natural:</b> dato del mundo real (cédula). <b>Sustituta:</b> generada por el sistema, sin significado de negocio; útil cuando no hay un buen identificador natural.</p></div>
+      <div class="tarjeta"><h3>Llave foránea</h3><p>Atributos de R<sub>2</sub> cuyos valores deben existir en la PK de R<sub>1</sub> o ser nulos. Debe tener el mismo dominio que la PK referenciada.</p>
+        <div class="recuadro recuadro--formal">π<sub>FK</sub>(r<sub>2</sub>) ⊆ π<sub>PK</sub>(r<sub>1</sub>) ∪ {NULL}</div></div>
+    </div>
+    <div class="tarjeta tarjeta--cafe"><h3>Jerarquía</h3><p class="mono" style="font-size:1.05rem;text-align:center">Llave primaria ⊆ Llaves candidatas ⊆ Superclaves</p></div>
+    <div class="rejilla rejilla--2">
+      <div class="tarjeta"><h3>Integridad de entidad</h3><p>Ningún atributo de la PK es nulo y su valor no se repite.</p>
+        <div class="recuadro recuadro--formal">∀ t ∈ r, ∀ A ∈ PK: t[A] ≠ NULL</div></div>
+      <div class="tarjeta"><h3>Acciones referenciales</h3><p>Al borrar o modificar una tupla referenciada:</p><ul>
+        <li><b>Restringir:</b> se rechaza si hay dependientes.</li>
+        <li><b>Cascada:</b> se propaga a las dependientes.</li>
+        <li><b>Fijar a nulo:</b> la FK dependiente queda sin valor.</li>
+        <li><b>Valor por defecto:</b> se asigna un valor predefinido.</li></ul></div>
+    </div>
+    <div class="tarjeta tarjeta--verde"><h3>Procedimiento para elegir la llave primaria</h3><ol>
+      <li>Analizar la semántica: qué debe ser único en el mundo real.</li>
+      <li>Listar superclaves y reducirlas a candidatas (minimalidad).</li>
+      <li>Descartar atributos que admitan nulos o cambien con frecuencia.</li>
+      <li>Elegir la candidata más corta, estable y significativa.</li>
+      <li>Declarar las demás candidatas como ÚNICO (alternativas).</li></ol></div>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">3 · Observa</span><h2>Buscador de llaves sobre DOCENTE</h2></div>
+    <p>DOCENTE(cedula, nombres, apellidos, email, fecha_nac, categoria). Por requisito, <b>cedula</b> y <b>email</b> no se repiten.</p>
+    <div class="tarjeta" id="buscador-m2"></div>
+    <div class="tarjeta"><h3>Conteo de superclaves</h3><p>Con m = 6 atributos y dos candidatas simples, por inclusión–exclusión:</p>
+      <div class="recuadro recuadro--formal">2<sup>6−1</sup> + 2<sup>6−1</sup> − 2<sup>6−2</sup> = 32 + 32 − 16 = 48</div>
+      <p>Hay 2<sup>m−|K|</sup> superclaves que contienen a K; se restan las que contienen a ambas candidatas para no contarlas dos veces.</p></div>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">4 · Comprueba</span><h2>Verificación formativa</h2></div>
+    <div id="quiz-m2"></div>
+  </div>
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">5 · Sintetiza</span><h2>Ideas clave</h2></div>
+    <div class="tarjeta tarjeta--verde"><ul>
+      <li>El dominio fija los valores válidos de cada atributo.</li>
+      <li>Candidata = superclave minimal; primaria = candidata elegida, única y no nula.</li>
+      <li>Las alternativas se marcan ÚNICO; la FK referencia una PK con el mismo dominio.</li>
+      <li>Una llave se define por la semántica, no por los datos de un momento.</li></ul>
+      <p style="margin:0"><b>Superclave → candidata → primaria → foránea.</b></p></div>
+  </div>
+  <div class="navegacion-pie"><a class="btn btn--sec" href="#m1">← Módulo 1</a><a class="btn" href="#m3">Módulo 3 →</a></div>
+</section>
+
+<!-- =========================================================
+     M3 · REGLAS DE TRADUCCIÓN (TEMA 05)
+     ========================================================= -->
+<section class="seccion" id="sec-m3" aria-labelledby="t-m3" hidden>
+  <div class="encabezado-seccion">
+    <span class="etiqueta">Módulo 3 · Tema 05 · Pasos 1 a 6</span>
+    <h1 id="t-m3">Reglas de traducción ER → relacional</h1>
+    <p>Cada regla con su ejemplo mínimo, ubicada en el proceso. Saldrá con un cuadro organizativo y un algoritmo de decisión que aplicará en el caso guiado y en el taller.</p>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">1 · Activa</span><h2>Saberes previos</h2></div>
+    <details class="despliega"><summary>¿En qué fase del ciclo de vida se ubica la traducción ER → relacional?</summary><div><p>En el <b>diseño lógico</b>: recibe el diagrama ER validado (diseño conceptual) y entrega relaciones con llaves y restricciones, independientes del SGBD. Después viene el diseño físico.</p></div></details>
+    <details class="despliega"><summary>¿Qué es la cardinalidad de una relación ER?</summary><div><p>El número máximo de entidades con que se asocia cada entidad: 1:1, 1:N o N:M. Es el dato que decide dónde va la llave foránea.</p></div></details>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">2 · Aprende</span><h2>Reglas para entidades y atributos</h2></div>
+    <div class="tabla-env"><table class="tabla">
+      <thead><tr><th>Elemento ER</th><th>Regla</th><th>Ejemplo resultante</th><th>Paso</th></tr></thead>
+      <tbody>
+        <tr><td><b>Entidad fuerte</b></td><td>Una relación con sus atributos simples; el identificador es la PK</td><td class="mono">CLIENTE(<span class="atr pk">ID_Cliente</span>, Nombre, Email)</td><td>2</td></tr>
+        <tr><td><b>Entidad débil</b></td><td>Clave parcial + PK de la propietaria; PK compuesta; FK a la propietaria. La relación identificadora no genera tabla</td><td class="mono">FACTURA(<span class="atr pk fk">ID_Cliente</span>, <span class="atr pk">Num_Fac</span>, Fecha)</td><td>3</td></tr>
+        <tr><td><b>Atributo compuesto</b></td><td>Una columna por componente</td><td class="mono">Nombre_Completo{Nombre, Apellido} → Nombre, Apellido</td><td>4</td></tr>
+        <tr><td><b>Atributo multivalorado</b></td><td>Nueva relación con la PK de la entidad + el valor</td><td class="mono">TELEFONO(<span class="atr pk fk">Matricula</span>, <span class="atr pk">Telefono</span>)</td><td>4</td></tr>
+        <tr><td><b>Atributo derivado</b></td><td>No se almacena; se calcula al consultar</td><td class="mono">Edad se omite; se conserva FechaNac</td><td>4</td></tr>
+        <tr><td><b>Atributo opcional</b></td><td>La columna admite NULL</td><td class="mono">Email ∈ dom(Email) ∪ {NULL}</td><td>4</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">2 · Aprende</span><h2>Reglas para relaciones</h2></div>
+    <div class="tabla-env"><table class="tabla">
+      <thead><tr><th>Relación ER</th><th>Regla</th><th>Ejemplo resultante</th><th>Paso</th></tr></thead>
+      <tbody>
+        <tr><td><b>1:N</b></td><td>FK en la relación del lado N, hacia la PK del lado 1</td><td class="mono">CURSO(<span class="atr pk">CodCurso</span>, Nombre, NHoras, <span class="atr fk">ID_Profesor</span>)</td><td>5</td></tr>
+        <tr><td><b>1:1</b></td><td>FK preferiblemente en el lado de participación total, marcada ÚNICO</td><td class="mono">PASAPORTE(<span class="atr pk">Num_Pasaporte</span>, FechaExp, <span class="atr fk">ID_Persona</span>) · ÚNICO(ID_Persona)</td><td>5</td></tr>
+        <tr><td><b>N:M</b></td><td>Relación intermedia con las dos PK como FK; su PK es la combinación; los atributos de la relación van aquí</td><td class="mono">INSCRIPCION(<span class="atr pk fk">Matricula</span>, <span class="atr pk fk">CodCurso</span>, Fecha_Insc)</td><td>6</td></tr>
+        <tr><td><b>N:M con repeticiones</b></td><td>Si el mismo par se repite en el tiempo: atributo temporal en la PK o llave sustituta</td><td class="mono">PRESTAMO(<span class="atr pk">ID_Prestamo</span>, <span class="atr fk">ID_Libro</span>, <span class="atr fk">ID_Usuario</span>, Fecha, Devuelto)</td><td>6</td></tr>
+        <tr><td><b>Ternaria</b></td><td>Relación con las PK de las participantes + atributos propios</td><td class="mono">IMPARTE(<span class="atr pk fk">ID_Profesor</span>, <span class="atr pk fk">CodCurso</span>, <span class="atr pk fk">CodAula</span>, Semestre)</td><td>6</td></tr>
+        <tr><td><b>Reflexiva N:M</b></td><td>Relación intermedia con la PK repetida y renombrada por rol</td><td class="mono">SUPERVISA(<span class="atr pk fk">ID_Supervisor</span>, <span class="atr pk fk">ID_Supervisado</span>)</td><td>6</td></tr>
+        <tr><td><b>Reflexiva 1:N</b></td><td>Una FK renombrada dentro de la misma relación; admite NULL</td><td class="mono">PROFESOR(<span class="atr pk">ID_Profesor</span>, Nombre, <span class="atr fk">ID_Supervisor</span>)</td><td>5</td></tr>
+      </tbody>
+    </table></div>
+    <h3>¿Por qué?</h3>
+    <details class="despliega"><summary>¿Por qué la FK de una 1:N no va en el lado 1?</summary><div><p>Un profesor con tres cursos exigiría tres valores en una celda o filas repetidas del profesor: se viola la atomicidad o se genera redundancia.</p></div></details>
+    <details class="despliega"><summary>¿Por qué la FK de una 1:1 conviene en el lado de participación total?</summary><div><p>Porque toda tupla de ese lado tiene pareja y la FK nunca queda en NULL. Si ambos lados son totales, incluso se pueden fusionar las dos relaciones.</p></div></details>
+    <details class="despliega"><summary>¿Por qué ÚNICO en la FK de una 1:1?</summary><div><p>Sin esa restricción, la misma persona podría aparecer en dos pasaportes y la relación se degradaría a 1:N.</p></div></details>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">3 · Observa</span><h2>Algoritmo de decisión</h2></div>
+    <p>Tome mentalmente un elemento de cualquier diagrama ER y recorra el árbol: al final obtendrá la regla y el paso del proceso que le corresponde.</p>
+    <div id="arbol"></div>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">4 · Comprueba</span><h2>Verificación formativa</h2></div>
+    <div id="quiz-m3"></div>
+  </div>
+  <div class="bloque">
+    <div class="bloque__titulo"><span class="chip-bloque">5 · Sintetiza</span><h2>Ideas clave</h2></div>
+    <div class="tarjeta tarjeta--verde"><ul>
+      <li>Las reglas son deterministas: cada elemento ER produce exactamente un artefacto relacional.</li>
+      <li>Las N:M siempre generan relación intermedia.</li>
+      <li>Las entidades débiles tienen PK compuesta con la PK de su propietaria.</li>
+      <li>Las 1:N llevan la FK en el lado N; las 1:1, una FK marcada ÚNICO.</li></ul></div>
+  </div>
+  <div class="navegacion-pie"><a class="btn btn--sec" href="#m2">← Módulo 2</a><a class="btn" href="#m4">Caso guiado →</a></div>
+</section>
+
+<!-- =========================================================
+     M4 · CASO GUIADO
+     ========================================================= -->
+<section class="seccion" id="sec-m4" aria-labelledby="t-m4" hidden>
+  <div class="encabezado-seccion">
+    <span class="etiqueta">Módulo 4 · Pasos 1 a 8</span>
+    <h1 id="t-m4">Caso guiado: «Educación Continua Unicórdoba»</h1>
+    <p>Seis entidades y seis relaciones ER producen diez relaciones. Responda la pregunta de control de cada paso para avanzar.</p>
+  </div>
+  <details class="despliega" open><summary>Enunciado del caso</summary><div>
+    <p>La Unidad de Educación Continua de la Universidad de Córdoba ofrece cursos de extensión en sus sedes y requiere una base de datos con estos requisitos:</p>
+    <ul id="caso-requisitos"></ul>
+  </div></details>
+
+  <nav class="pasos-caso" id="pasos-caso" aria-label="Pasos del caso guiado"></nav>
+  <div class="visor">
+    <div class="visor__diagrama">
+      <div class="diagrama-er" id="caso-er"></div>
+      <p class="er-pie" id="caso-er-pie"></p>
+    </div>
+    <div class="panel-paso" id="caso-panel" aria-live="polite"></div>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><h2>Matriz de trazabilidad</h2></div>
+    <p>Se completa a medida que avanza: cada elemento ER queda ligado al artefacto relacional que produce.</p>
+    <div class="tabla-env"><table class="tabla">
+      <thead><tr><th>Elemento ER</th><th>Artefacto relacional</th><th>Regla</th><th>Paso</th></tr></thead>
+      <tbody id="traza-cuerpo"></tbody>
+    </table></div>
+  </div>
+  <div class="leyenda-esquema"><span><span class="atr pk">🔑 subrayado</span> = llave primaria</span><span><span class="atr fk">🔗 cursiva</span> = llave foránea</span><span><span class="atr recien">fondo verde</span> = agregado en este paso</span></div>
+</section>
+
+<!-- =========================================================
+     M5 · LABORATORIO
+     ========================================================= -->
+<section class="seccion" id="sec-m5" aria-labelledby="t-m5" hidden>
+  <div class="encabezado-seccion">
+    <span class="etiqueta">Módulo 5 · Pasos 1 a 8</span>
+    <h1 id="t-m5">Laboratorio de práctica interactiva</h1>
+    <p>Seis ejercicios formativos con intentos ilimitados. El puntaje indica su avance, pero no cuenta para la nota.</p>
+  </div>
+  <div class="tarjeta tarjeta--cafe"><h3>Escenario «Empresa de servicios»</h3>
+    <p>Una empresa organiza a sus empleados en departamentos: cada empleado pertenece a un departamento y un departamento tiene varios empleados. Los empleados trabajan en varios proyectos y cada proyecto tiene varios empleados; se registran las horas semanales asignadas. Cada escritorio está asignado a un único empleado, y un empleado tiene como máximo un escritorio. Los dependientes (hijos, cónyuge) de cada empleado se identifican por su nombre dentro de la familia del empleado.</p></div>
+
+  <div class="bloque"><div class="bloque__titulo"><span class="chip-bloque">Paso 1</span><h2>Ejercicio 1 · Clasificador de elementos</h2></div><div id="lab-clasificar"></div></div>
+  <div class="bloque"><div class="bloque__titulo"><span class="chip-bloque">Paso 5</span><h2>Ejercicio 2 · ¿Dónde va la llave foránea?</h2></div><div id="lab-fk"></div></div>
+  <div class="bloque"><div class="bloque__titulo"><span class="chip-bloque">Pasos 2 a 6</span><h2>Ejercicio 3 · Constructor de esquemas</h2></div>
+    <p>Para cada relación del escenario, indique el papel de cada atributo propuesto. Algunos atributos sobran: márquelos como «No incluir».</p>
+    <div id="lab-constructor"></div></div>
+  <div class="bloque"><div class="bloque__titulo"><span class="chip-bloque">Paso 7</span><h2>Ejercicio 4 · Cazador de llaves</h2></div>
+    <div id="lab-llaves-quiz"></div>
+    <div class="tarjeta" id="lab-llaves-num"><h3>¿Cuántas superclaves tiene VEHICULO (m = 5)?</h3>
+      <div class="campo" style="max-width:220px"><label for="num-superclaves">Número de superclaves</label><input type="number" id="num-superclaves" min="0"></div>
+      <button type="button" class="btn">Comprobar</button><div class="retro" aria-live="polite"></div></div></div>
+  <div class="bloque"><div class="bloque__titulo"><span class="chip-bloque">Paso 8</span><h2>Ejercicio 5 · Detector de violaciones</h2></div>
+    <div class="recuadro recuadro--formal" style="text-align:left">DEPARTAMENTO = {⟨D01, Sistemas⟩, ⟨D02, Contabilidad⟩}<br>EMPLEADO = {⟨E10, …, D01⟩, ⟨E11, …, D02⟩}<br>ESCRITORIO = {⟨S-1, 2, E10⟩} · ASIGNACION = {⟨E10, P1, 12⟩}<br>Acción de EMPLEADO hacia DEPARTAMENTO: restringir</div>
+    <div id="lab-detector"></div></div>
+  <div class="bloque"><div class="bloque__titulo"><span class="chip-bloque">Pasos 2 a 8</span><h2>Ejercicio 6 · Verdadero o falso</h2></div><div id="lab-vf"></div></div>
+  <div class="navegacion-pie"><a class="btn btn--sec" href="#m4">← Caso guiado</a><a class="btn" href="#m6">Módulo 6 →</a></div>
+</section>
+
+<!-- =========================================================
+     M6 · ERRORES COMUNES Y BUENAS PRÁCTICAS
+     ========================================================= -->
+<section class="seccion" id="sec-m6" aria-labelledby="t-m6" hidden>
+  <div class="encabezado-seccion">
+    <span class="etiqueta">Módulo 6 · Pasos 2 a 8</span>
+    <h1 id="t-m6">Errores comunes y buenas prácticas</h1>
+    <p>Los doce errores más frecuentes, las convenciones de denominación y la lista de verificación que usará en el taller.</p>
+  </div>
+  <div class="tabla-env"><table class="tabla">
+    <caption>Error → por qué falla → corrección</caption>
+    <thead><tr><th>#</th><th>Error</th><th>Por qué falla</th><th>Corrección</th><th>Paso</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Guardar varios valores en una celda («Cálculo, Álgebra»)</td><td>Rompe la atomicidad</td><td>Relación aparte para el multivalorado</td><td>4</td></tr>
+      <tr><td>2</td><td>Crear columnas telefono1, telefono2, telefono3</td><td>Límite arbitrario y columnas vacías</td><td>Relación TELEFONO con PK compuesta</td><td>4</td></tr>
+      <tr><td>3</td><td>Almacenar atributos derivados como edad</td><td>Se desactualizan con el tiempo</td><td>Guardar fecha_nac y calcular</td><td>4</td></tr>
+      <tr><td>4</td><td>Poner la FK de una 1:N en el lado 1</td><td>Exige celdas multivaloradas o filas repetidas</td><td>FK en el lado N</td><td>5</td></tr>
+      <tr><td>5</td><td>Olvidar ÚNICO en la FK de una 1:1</td><td>La relación se degrada a 1:N</td><td>Marcar la FK como ÚNICO</td><td>5</td></tr>
+      <tr><td>6</td><td>Traducir una N:M con una sola FK</td><td>Pierde asociaciones o duplica datos</td><td>Relación intermedia</td><td>6</td></tr>
+      <tr><td>7</td><td>Ubicar atributos de la relación en una entidad</td><td>fecha_insc no describe al participante ni al curso</td><td>Ubicarlos en la relación intermedia</td><td>6</td></tr>
+      <tr><td>8</td><td>Dar a la entidad débil solo su clave parcial como PK</td><td>num_salon se repite entre sedes</td><td>PK = PK propietaria + clave parcial</td><td>3</td></tr>
+      <tr><td>9</td><td>Elegir el nombre como llave primaria</td><td>Admite homónimos y cambios</td><td>Elegir una candidata estable y corta</td><td>7</td></tr>
+      <tr><td>10</td><td>Confundir superclave con llave candidata</td><td>Se olvida la minimalidad</td><td>Verificar que ningún subconjunto identifique</td><td>7</td></tr>
+      <tr><td>11</td><td>Usar NULL como si fuera cero o cadena vacía</td><td>NULL significa desconocido o no aplicable</td><td>Admitir nulos solo donde el requisito lo permite</td><td>7</td></tr>
+      <tr><td>12</td><td>Elegir cascada sin analizar qué se pierde</td><td>Borrados masivos no deseados</td><td>Decidir la acción según la semántica del vínculo</td><td>7</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><h2>Convenciones de denominación</h2></div>
+    <div class="tabla-env"><table class="tabla">
+      <thead><tr><th>Elemento</th><th>Convención</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td>Relación de entidad</td><td>Sustantivo en MAYÚSCULAS; en el curso, en singular como en el diagrama ER</td><td class="mono">DOCENTE</td></tr>
+        <tr><td>Relación de vínculo</td><td>Nombre de la relación o sustantivo del hecho</td><td class="mono">INSCRIPCION, IMPARTE</td></tr>
+        <tr><td>Llave primaria</td><td>Prefijo cod_ o id_, o nombre semántico</td><td class="mono">cod_curso, cedula</td></tr>
+        <tr><td>Llave foránea</td><td>Mismo nombre que la PK referenciada</td><td class="mono">cod_area en CURSO</td></tr>
+        <tr><td>FK con rol o reflexiva</td><td>Nombre del rol + PK</td><td class="mono">ced_coordinador, cod_curso_req</td></tr>
+        <tr><td>Atributos</td><td>Minúsculas con guion bajo, sin tildes ni espacios</td><td class="mono">fecha_insc</td></tr>
+      </tbody>
+    </table></div>
+    <div class="recuadro recuadro--regla"><span class="recuadro__titulo">Regla de oro</span>Un identificador bien elegido explica por sí mismo el elemento que representa.</div>
+  </div>
+
+  <div class="bloque">
+    <div class="bloque__titulo"><h2>Lista de verificación del esquema</h2></div>
+    <p>Úsela para revisar su esquema antes de entregar el taller. Las marcas se guardan en este navegador.</p>
+    <ul class="checklist" id="checklist"></ul>
+  </div>
+  <div class="navegacion-pie"><a class="btn btn--sec" href="#m5">← Laboratorio</a><a class="btn" href="#taller">Taller evaluativo →</a></div>
+</section>
+
+<!-- =========================================================
+     TALLER EVALUATIVO
+     ========================================================= -->
+<section class="seccion" id="sec-taller" aria-labelledby="t-taller" hidden>
+  <div class="encabezado-seccion">
+    <span class="etiqueta">Evaluación sumativa · Pasos 1 a 8 · 100 puntos · 120 minutos</span>
+    <h1 id="t-taller">Taller evaluativo final</h1>
+    <p>Trabajo individual con el OVA como material de consulta. Caso nuevo: «Granja Experimental».</p>
+  </div>
+  <div class="tabla-env"><table class="tabla">
+    <thead><tr><th>Parte</th><th>Contenido</th><th>Pasos</th><th>Puntos</th><th>Calificación</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td>Cuestionario de 10 preguntas</td><td>1 a 8</td><td>20</td><td>Automática</td></tr>
+      <tr><td>B</td><td>Traducción del caso: inventario, esquema, dominios y llaves</td><td>1 a 7</td><td>50</td><td>Docente, con rúbrica</td></tr>
+      <tr><td>C</td><td>Validación con instancia y análisis de llaves</td><td>7, 8</td><td>20</td><td>C1 automática; C2 y C3 docente</td></tr>
+      <tr><td>D</td><td>Reflexión sobre decisiones de diseño</td><td>1 a 8</td><td>10</td><td>Docente, con rúbrica</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="tarjeta bloqueo" id="taller-bloqueo" hidden>
+    <div class="candado" aria-hidden="true">🔒</div>
+    <h2>El taller se habilita al completar el caso guiado</h2>
+    <p id="taller-avance"></p>
+    <a class="btn" href="#m4">Ir al caso guiado</a>
+  </div>
+  <div id="taller-app" hidden></div>
+
+  <details class="despliega"><summary>Ver la rúbrica de calificación (partes B, C2, C3 y D)</summary><div>
+    <div class="tabla-env"><table class="tabla">
+      <thead><tr><th>Criterio</th><th>Excelente (100 %)</th><th>Satisfactorio (75 %)</th><th>En desarrollo (50 %)</th><th>Insuficiente (25 % o 0)</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>B1 · Inventario</td><td>Todos los elementos con cardinalidad y participación correctas</td><td>1 o 2 omisiones menores</td><td>Confunde fuerte/débil o una cardinalidad</td><td>Incompleto o ausente</td><td>10</td></tr>
+        <tr><td>B2 · Esquema</td><td>Todas las relaciones correctas, con PK, FK y regla declarada</td><td>1 error de FK o PK</td><td>2 o 3 errores, o falta una relación</td><td>Más de 3 errores</td><td>25</td></tr>
+        <tr><td>B3 · Dominios e integridad</td><td>Dominios precisos, llaves completas, acciones justificadas y 2 reglas semánticas</td><td>Algún dominio impreciso o una acción sin justificar</td><td>Faltan alternativas o varias acciones</td><td>Sin dominios o sin FK</td><td>15</td></tr>
+        <tr><td>C2 · Grado y cardinalidad</td><td>4 valores correctos</td><td>3 correctos</td><td>2 correctos</td><td>1 o ninguno</td><td>3</td></tr>
+        <tr><td>C3 · Superclaves</td><td>Candidatas y conteo correctos, con procedimiento</td><td>Error aritmético</td><td>Solo una candidata</td><td>Sin procedimiento</td><td>5</td></tr>
+        <tr><td>D · Reflexión</td><td>Argumenta con las reglas y compara alternativas</td><td>Correcto pero incompleto</td><td>Descriptivo sin justificación</td><td>Ausente o incorrecto</td><td>10</td></tr>
+      </tbody>
+    </table></div>
+    <p>Nota en escala 0,0–5,0 = puntos totales / 20.</p>
+  </div></details>
+</section>
+
+<!-- =========================================================
+     GLOSARIO
+     ========================================================= -->
+<section class="seccion" id="sec-glosario" aria-labelledby="t-glosario" hidden>
+  <div class="encabezado-seccion"><span class="etiqueta">Consulta</span><h1 id="t-glosario">Glosario</h1><p>Términos clave con su definición y un ejemplo del caso guiado.</p></div>
+  <label for="glosario-buscar" class="sr-only">Buscar término</label>
+  <input type="search" id="glosario-buscar" class="buscador" placeholder="Buscar término…">
+  <div class="tabla-env"><table class="tabla"><thead><tr><th>Término</th><th>Definición</th><th>Ejemplo del caso</th></tr></thead><tbody id="glosario-lista"></tbody></table></div>
+</section>
+
+<!-- =========================================================
+     REFERENCIAS Y CRÉDITOS
+     ========================================================= -->
+<section class="seccion" id="sec-referencias" aria-labelledby="t-ref" hidden>
+  <div class="encabezado-seccion"><span class="etiqueta">Consulta</span><h1 id="t-ref">Referencias y créditos</h1></div>
+  <div class="tarjeta"><h2>Referencias</h2><ul>
+    <li>Codd, E. F. (1970). A relational model of data for large shared data banks. <i>Communications of the ACM, 13</i>(6), 377–387.</li>
+    <li>Connolly, T. y Begg, C. (2015). <i>Database Systems</i> (6.ª ed.). Pearson.</li>
+    <li>Date, C. J. (2004). <i>An Introduction to Database Systems</i> (8.ª ed.). Addison-Wesley.</li>
+    <li>Elmasri, R. y Navathe, S. B. (2016). <i>Fundamentals of Database Systems</i> (7.ª ed.). Pearson.</li>
+    <li>Ramakrishnan, R. y Gehrke, J. (2003). <i>Database Management Systems</i> (3.ª ed.). McGraw-Hill.</li>
+    <li>Silberschatz, A., Korth, H. F. y Sudarshan, S. (2019). <i>Database System Concepts</i> (7.ª ed.). McGraw-Hill.</li>
+    <li>Fernández Arango, A. (2026). <i>Traducción de Modelos ER</i>, versión 3 [Material de clase, Tema 05]. Universidad de Córdoba.</li>
+    <li>Fernández Arango, A. (2026). <i>Estructuración Estática de las Bases de Datos Relacionales</i> [Material de clase, Semana 06]. Universidad de Córdoba.</li>
+    <li>Fernández Arango, A. (2026). <i>Dominios, Relación y Llaves</i> [Material de clase, Semana 07]. Universidad de Córdoba.</li>
+    <li>Universidad de Córdoba. (2018). <i>Manual de Identidad Visual Corporativa</i>, versión 1.0.</li>
+  </ul></div>
+  <div class="tarjeta tarjeta--verde"><h2>Créditos</h2>
+    <p><b>Autor y docente:</b> Ing. Alexander Fernández Arango, Mg.S.I. · Departamento de Ingeniería de Sistemas · Facultad de Ciencias Básicas e Ingenierías · Universidad de Córdoba, Montería.</p>
+    <p><b>Curso:</b> Bases de Datos (FDOC-088), Unidad 2: Modelado relacional.</p>
+    <p><b>Tecnología:</b> HTML5, CSS3 y JavaScript puros; funciona sin conexión y sin servidor.</p>
+    <p><b>Licencia sugerida:</b> Creative Commons Atribución-NoComercial-CompartirIgual 4.0 (CC BY-NC-SA 4.0).</p>
+    <p><b>Versión:</b> <span id="version"></span></p></div>
+</section>
+
+    <div class="informe" id="informe" aria-hidden="true"></div>
+  </main>
+</div>
+
+<!-- ===================== PIE ===================== -->
+<footer class="pie">
+  <span>Universidad de Córdoba · Montería, Colombia · Departamento de Ingeniería de Sistemas</span>
+  <span>OVA «Traducción del Modelo ER» · Ing. Alexander Fernández Arango, Mg.S.I.</span>
+  <span class="pie__vigilada">VIGILADA MINEDUCACIÓN</span>
+</footer>
+
+<!-- ============ VENTANA DEL GLOSARIO CONTEXTUAL ============ -->
+<div class="modal" id="modal-glosario" hidden>
+  <div class="modal__caja" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <button type="button" class="btn btn--sec btn--peq modal__cerrar" id="modal-cerrar">Cerrar ✕</button>
+    <h2 id="modal-titulo">Glosario</h2>
+    <label for="modal-glosario-buscar" class="sr-only">Buscar término</label>
+    <input type="search" id="modal-glosario-buscar" class="buscador" placeholder="Buscar término…">
+    <div class="tabla-env"><table class="tabla"><thead><tr><th>Término</th><th>Definición</th><th>Ejemplo</th></tr></thead><tbody id="modal-glosario-lista"></tbody></table></div>
+  </div>
+</div>
+
+<!-- Scripts clásicos (compatibles con apertura local file://) -->
+<script src="js/contenido.js"></script>
+<script src="js/diagramas.js"></script>
+<script src="js/ejercicios.js"></script>
+<script src="js/taller.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

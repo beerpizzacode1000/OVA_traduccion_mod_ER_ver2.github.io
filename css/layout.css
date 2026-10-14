@@ -1,0 +1,153 @@
+/* =========================================================
+   layout.css · Cabecera, barra del proceso, menú lateral,
+   contenido principal, pie y comportamiento adaptable.
+   ========================================================= */
+
+/* ---------- Cabecera institucional ---------- */
+.cabecera {
+  position: sticky; top: 0; z-index: 30;
+  height: var(--alto-cabecera);
+  display: flex; align-items: center; gap: 14px;
+  padding: 0 20px;
+  background: var(--uc-verde);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.15);
+}
+.cabecera__logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; min-width: 0; }
+.cabecera__logo img { height: 44px; width: auto; background: #fff; border-radius: 50%; padding: 2px; }
+.cabecera__emblema {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 2px solid #fff; display: grid; place-items: center;
+  font-weight: 700; font-size: .8rem; letter-spacing: .5px; flex: none;
+}
+.cabecera__textos { display: flex; flex-direction: column; min-width: 0; }
+.cabecera__inst { font-size: .78rem; letter-spacing: 1.2px; text-transform: uppercase; opacity: .95; }
+.cabecera__titulo { font-size: 1.05rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cabecera__acciones { margin-left: auto; display: flex; gap: 8px; }
+.btn-cabecera {
+  background: transparent; border: 1.5px solid rgba(255,255,255,.85); color: #fff;
+  border-radius: var(--radio); padding: 6px 12px; cursor: pointer; font-size: .9rem;
+}
+.btn-cabecera:hover { background: rgba(255,255,255,.15); }
+.btn-menu { display: none; }
+
+/* ---------- Barra del proceso de 8 pasos ---------- */
+.proceso {
+  position: sticky; top: var(--alto-cabecera); z-index: 25;
+  background: var(--uc-blanco);
+  border-bottom: 1px solid var(--uc-gris-claro);
+  padding: 8px 20px;
+}
+.proceso__titulo { font-size: .78rem; color: var(--uc-gris); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.proceso__lista { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+.proceso__lista li { margin: 0; }
+.estacion {
+  width: 100%; display: flex; align-items: center; gap: 6px;
+  border: 1.5px solid var(--uc-gris-claro); background: var(--uc-blanco);
+  border-radius: 999px; padding: 4px 8px 4px 4px; cursor: pointer;
+  font-size: .82rem; text-align: left; color: var(--uc-gris);
+  transition: background .15s, border-color .15s;
+}
+.estacion__num {
+  flex: none; width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 700; font-size: .8rem;
+  background: var(--uc-gris-claro); color: var(--uc-negro);
+}
+.estacion__txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.estacion.relevante { border-color: var(--uc-verde); color: var(--uc-verde-oscuro); }
+.estacion.relevante .estacion__num { background: var(--uc-verde-claro); color: var(--uc-verde-oscuro); }
+.estacion.activa { background: var(--uc-verde); border-color: var(--uc-verde); color: #fff; font-weight: 700; }
+.estacion.activa .estacion__num { background: #fff; color: var(--uc-verde-oscuro); }
+.estacion.hecha .estacion__num::after { content: "✓"; }
+.estacion.hecha .estacion__num span { display: none; }
+
+.popover-paso {
+  position: absolute; left: 20px; right: 20px; top: calc(100% + 4px);
+  max-width: 640px; margin: 0 auto;
+  background: var(--uc-blanco); border: 2px solid var(--uc-verde); border-radius: var(--radio);
+  box-shadow: var(--sombra); padding: 14px 16px; font-size: .95rem;
+}
+.popover-paso h3 { margin-bottom: .3em; color: var(--uc-verde-oscuro); }
+.popover-paso .cerrar { position: absolute; top: 6px; right: 8px; }
+
+/* ---------- Estructura principal ---------- */
+.contenedor { display: flex; min-height: calc(100vh - var(--alto-cabecera)); }
+
+.menu {
+  flex: none; width: var(--ancho-menu);
+  background: var(--uc-blanco); border-right: 1px solid var(--uc-gris-claro);
+  padding: 16px 12px 24px;
+  position: sticky; top: calc(var(--alto-cabecera) + 66px);
+  height: calc(100vh - var(--alto-cabecera) - 66px); overflow-y: auto;
+}
+.menu__progreso { padding: 4px 8px 14px; }
+.menu__progreso small { color: var(--uc-gris); }
+.barra-avance { height: 8px; border-radius: 4px; background: var(--uc-gris-claro); overflow: hidden; margin-top: 4px; }
+.barra-avance > span { display: block; height: 100%; background: var(--uc-verde); width: 0; transition: width .3s; }
+.menu ol { list-style: none; padding: 0; margin: 0; }
+.menu li { margin: 0 0 2px; }
+.menu a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px; border-radius: var(--radio);
+  text-decoration: none; color: var(--uc-negro); font-size: .95rem;
+}
+.menu a:hover { background: var(--uc-verde-claro); }
+.menu a[aria-current="page"] { background: var(--uc-verde); color: #fff; font-weight: 700; }
+.menu__marca {
+  flex: none; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--uc-gris-claro); display: grid; place-items: center; font-size: .75rem;
+}
+.menu a.visto .menu__marca { border-color: var(--uc-verde); color: var(--uc-verde-oscuro); }
+.menu a.completo .menu__marca { background: var(--uc-verde); border-color: var(--uc-verde); color: #fff; }
+.menu a[aria-current="page"] .menu__marca { border-color: #fff; color: #fff; }
+.menu a.bloqueado { color: var(--uc-gris); }
+.menu__sep { font-size: .75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--uc-gris); padding: 14px 10px 4px; }
+
+.principal { flex: 1; min-width: 0; padding: 28px 40px 48px; }
+.seccion { max-width: 980px; margin: 0 auto; }
+.seccion[hidden] { display: none; }
+.seccion:focus { outline: none; }
+
+.encabezado-seccion { border-bottom: 3px solid var(--uc-verde); padding-bottom: 12px; margin-bottom: 22px; }
+.encabezado-seccion .etiqueta { font-size: .85rem; color: var(--uc-cafe); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.encabezado-seccion h1 { margin: 4px 0 6px; }
+.encabezado-seccion p { color: var(--uc-gris); margin: 0; }
+
+.navegacion-pie { display: flex; justify-content: space-between; gap: 12px; margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--uc-gris-claro); }
+
+/* ---------- Pie institucional ---------- */
+.pie {
+  background: var(--uc-negro); color: #ddd; font-size: .85rem;
+  padding: 18px 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; align-items: center;
+}
+.pie a { color: #fff; }
+.pie__vigilada { font-weight: 700; letter-spacing: 1px; color: #fff; }
+
+/* ---------- Adaptable ---------- */
+@media (max-width: 1100px) {
+  .estacion__txt { display: none; }
+  .estacion { justify-content: center; padding: 4px; }
+}
+@media (max-width: 900px) {
+  .btn-menu { display: inline-block; }
+  .menu {
+    position: fixed; z-index: 40; left: 0; top: var(--alto-cabecera);
+    height: calc(100vh - var(--alto-cabecera)); transform: translateX(-105%);
+    transition: transform .2s; box-shadow: var(--sombra);
+  }
+  .menu.abierto { transform: translateX(0); }
+  .principal { padding: 20px 16px 40px; }
+  .cabecera__inst { display: none; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  h1 { font-size: 1.55rem; }
+  .proceso { padding: 6px 10px; }
+  .proceso__lista { gap: 3px; }
+  .estacion__num { width: 22px; height: 22px; }
+  .btn-cabecera.glosario { display: none; }
+  .btn-menu .txt { display: none; }
+  .cabecera { gap: 10px; padding: 0 12px; }
+  .cabecera__logo img, .cabecera__emblema { width: 38px; height: 38px; }
+  .proceso__titulo { display: none; }
+}
